@@ -1,18 +1,40 @@
 import { useState, type FunctionComponent } from "react";
 
-interface CardProductProps {
-    imageUrl: string
-    name: string
-    price: number
-    qty: number
-}
+export type CardProductProps = {
+    imageUrl: string;
+    name: string;
+    price: number;
+    qty: number;
+    onAddToCart: (productData: {
+        name: string;
+        price: number;
+        qty: number;
+        imageUrl: string;
+    }) => void;
+};
 
 const CardProduct: FunctionComponent<CardProductProps> = (props) => {
-    const [qty, setQty] = useState(0)
+    const [qtyState, setQtyState] = useState<number>(0);
 
-    const tambahQty = () => {
-        setQty(qty + 1)
+    const handlePlusQty = () => {
+        setQtyState(qtyState + 1);
     }
+    const handleMinusQty = () => {
+        if (qtyState === 0) return;
+        setQtyState(qtyState - 1);
+    }
+
+    const handleAddToCart = () => {
+        if (qtyState === 0) return;
+
+        props.onAddToCart({
+            name: props.name,
+            price: props.price,
+            qty: qtyState,
+            imageUrl: props.imageUrl,
+        });
+        setQtyState(0);
+    };
 
     return (
         <div className=" flex flex-col w-64 bg-white shadow rounded items-start ">
@@ -22,17 +44,25 @@ const CardProduct: FunctionComponent<CardProductProps> = (props) => {
                 <p className="font-light">Rp. {props.price}</p>
             </div>
             <div className="p-3 flex gap-2">
-                <div className="w-6 bg-white shadow border border-gray-600 rounded hover:bg-gray-600 hover:text-white cursor-pointer"s>
+                <div
+                    className="w-6 bg-white shadow border border-gray-600 rounded hover:bg-gray-600 hover:text-white cursor-pointer"
+                    onClick={handleMinusQty}
+                >
                     -
                 </div>
-                <p>{qty}</p>
-                <div className="w-6 bg-white shadow border border-green-600 rounded  hover:bg-green-600 hover:text-white cursor-pointer">
+                <p>{qtyState}</p>
+                <div
+                    className="w-6 bg-white shadow border border-green-600 rounded  hover:bg-green-600 hover:text-white cursor-pointer"
+                    onClick={handlePlusQty}
+                >
                     +
                 </div>
-
+            </div>
+            <div className="w-full bg-green-500 text-white text-center p-2 cursor-pointer hover:bg-green-600" onClick={handleAddToCart}>
+                <p>Add Cart</p>
             </div>
         </div>
     );
-}
+};
 
 export default CardProduct;

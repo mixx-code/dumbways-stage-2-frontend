@@ -9,9 +9,18 @@ export interface ListTodoProps {
 
 const ListTodo: FunctionComponent<ListTodoProps> = (props) => {
     return (
-        <div className={`p-3 rounded  ${props.completed ? 'bg-red-500' : 'bg-green-500 line-through text-white'}`}>
-            <p> tanggal: {props.tanggal} | aktivitas: {props.aktivitas}</p>
-        </div >
+      <div
+        className={`p-3 rounded  ${
+          props.completed
+            ? "bg-green-500 line-through text-white"
+            : "bg-red-500"
+        }`}
+      >
+        <p>
+          {" "}
+          tanggal: {props.tanggal} | aktivitas: {props.aktivitas}
+        </p>
+      </div>
     );
 }
 
