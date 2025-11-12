@@ -56,6 +56,11 @@ function App() {
     <div className="flex flex-col gap-4 p-4 items-start">
       <h1 className="text-4xl font-bold">List Product</h1>
       <div className="flex gap-4 flex-wrap">
+        {
+          
+        }
+
+
         {listProduct.length === 0 ? (
           <p>Data produk kosong</p>
         ) : (
@@ -67,6 +72,7 @@ function App() {
               imageUrl={product.imageUrl}
               qty={product.qty}
               onAddToCart={handleAddToCart}
+
             />
           ))
         )}
