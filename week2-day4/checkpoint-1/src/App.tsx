@@ -10,6 +10,8 @@ import { ThemeProvider, useTheme } from './components/ui/theme-provider'
 import { type FunctionComponent } from 'react'
 import { AuthProvider } from './context/AuthProvider'
 import { useAuth } from './hooks/userAuth'
+import { Button } from './components/ui/button'
+import PrivateRoute from './lib/PrivateRoute'
 
 
 const Header: FunctionComponent = () => {
@@ -31,11 +33,15 @@ const Header: FunctionComponent = () => {
               <Link to="/home">Home</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-              <Link to="/products">Products</Link>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
+          {
+            token && (
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <Link to="/products">Products</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            )
+          }
           <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
               <Link to="/cart">Cart</Link>
@@ -45,7 +51,7 @@ const Header: FunctionComponent = () => {
             token ? (
               <NavigationMenuItem>
                 <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link to="/cart">Logout</Link>
+                  <Button variant="secondary" className='bg-red-600 text-white' onClick={logout}>Logout</Button>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             ) : (
@@ -81,7 +87,11 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Login />} />
             <Route path='/home' element={<Home />} />
-            <Route path='/Products' element={<Products />} />
+            <Route path='/Products' element={
+              <PrivateRoute>
+                <Products />
+              </PrivateRoute>
+            }> </Route>
             <Route path='/cart' element={<Cart />} />
           </Routes>
         </BrowserRouter>
