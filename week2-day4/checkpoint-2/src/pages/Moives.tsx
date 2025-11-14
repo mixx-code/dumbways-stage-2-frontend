@@ -51,7 +51,6 @@ const Movies = () => {
                 ) : (
                     <div className=" w-full min-h-[500px] grid grid-cols-2 gap-4">
                         {
-
                             movies.map((data, index) => (
                                 <Card
                                     className="flex flex-row w-[600px] p-0 shadow-2xl box-content cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl"

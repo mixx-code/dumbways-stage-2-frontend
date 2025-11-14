@@ -42,7 +42,7 @@ const Products = () => {
                 {
                     products.map((data, index) => (
                         <Card 
-                        className="w-[350px] min-h-[500px] p-2 shadow-2xl box-content" 
+                        className="w-[350px] min-h-[500px] p-2 shadow-2xl box-content cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl" 
                         key={index}
                         onClick={() => setSelectedproduct(data)}
                         >
